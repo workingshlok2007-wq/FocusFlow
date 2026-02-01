@@ -20,7 +20,7 @@ export const setupMiddleware = (app: Express) => {
 
   app.use('/api', limiter);
 
-  app.get('/health', (req, res) => {
+  app.get('/health', (_req, res) => {
     res.status(200).json({ status: 'ok', timestamp: new Date().toISOString() });
   });
 };

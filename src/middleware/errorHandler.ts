@@ -3,12 +3,7 @@ import { ApiError } from '../utils/ApiError';
 import { logger } from '../utils/logger';
 import { ZodError } from 'zod';
 
-export const errorHandler = (
-  err: Error,
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+export const errorHandler = (err: Error, _req: Request, res: Response, _next: NextFunction) => {
   logger.error('Error:', err);
 
   if (err instanceof ApiError) {
@@ -30,7 +25,7 @@ export const errorHandler = (
     });
   }
 
-  res.status(500).json({
+  return res.status(500).json({
     success: false,
     message: 'Internal server error',
     ...(process.env.NODE_ENV === 'development' && { error: err.message }),
